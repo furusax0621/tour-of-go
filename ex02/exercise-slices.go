@@ -6,7 +6,7 @@ package main
 
 import "golang.org/x/tour/pic"
 
-// Pic は長さdx x dyの画像を生成します。
+// Pic は長さdx * dyの画像を生成します。
 func Pic(dx, dy int) [][]uint8 {
 	slice := make([][]uint8, dy)
 	for i := range slice {
