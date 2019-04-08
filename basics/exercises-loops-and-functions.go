@@ -1,7 +1,6 @@
-package main
-
 // Exercise: Loops and Functions
 // 関数とループを使った簡単な練習として、平方根の実装をしてみましょう
+package main
 
 import (
 	"fmt"
@@ -11,6 +10,7 @@ import (
 // ニュートン法の繰り返しを中断するしきい値
 const epsilon = 1.0e-5
 
+// Sqrt は引数 x の平方根を求めます。
 func Sqrt(x float64) float64 {
 	z := 1.0
 	for i := 1; i <= 10; i++ {
