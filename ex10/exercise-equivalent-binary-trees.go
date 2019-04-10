@@ -15,12 +15,25 @@ import (
 // Walk walks the tree t sending all values
 // from the tree to the channel ch.
 func Walk(t *tree.Tree, ch chan int) {
-	// TODO: t を次のように走査する関数を宣言する
-	// 1. t.Left を引数として関数を呼び出す
-	// 2. t.Value をチャネルに送る
-	// 3. t.Right を引数として関数を呼び出す
+	// t を走査する関数値(function value)
+	var walk func(*tree.Tree)
+	walk = func(l *tree.Tree) {
+		// 1. t.Left を引数として関数を呼び出す
+		if l.Left != nil {
+			walk(l.Left)
+		}
 
-	// TODO: t (root of tree)を引数として関数を呼び出す
+		// 2. t.Value をチャネルに送る
+		ch <- l.Value
+
+		// 3. t.Right を引数として関数を呼び出す
+		if l.Right != nil {
+			walk(l.Right)
+		}
+	}
+
+	// t (root of tree)を引数として関数を呼び出す
+	walk(t)
 
 	close(ch)
 }
@@ -34,7 +47,7 @@ func Same(t1, t2 *tree.Tree) bool {
 func main() {
 	// Test Walk
 	ch := make(chan int)
-	Walk(tree.New(1), ch)
+	go Walk(tree.New(1), ch)
 	for v := range ch {
 		fmt.Println(v)
 	}
